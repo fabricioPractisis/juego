@@ -1,65 +1,42 @@
 <!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
 <html>
-<head>
-<title>Shake the Die!</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script type="text/javascript" src="cordova.js"></script>
-<script>
-document.addEventListener("deviceready", onDeviceReady, false);
-var lastX,lastY,lastZ;
-var moveCounter = 0;
-function onDeviceReady() {
-shuffleNumber();
-navigator.accelerometer.watchAcceleration(gotMovement, errHandler,{frequency:200});
-}
-function errHandler(e) {
-console.log("--- ERROR ---");
-console.dir(e);
-}
-function gotMovement(a) {
-if(!lastX) {
-lastX = a.x;
-lastY = a.y;
-lastZ = a.z;
-return;
-}
-var deltaX, deltaY, deltaZ;
-deltaX = Math.abs(a.x-lastX);
-deltaY = Math.abs(a.y-lastY);
-deltaZ = Math.abs(a.z-lastZ);
-if(deltaX + deltaY + deltaZ > 3) {
-moveCounter++;
-} else {
-moveCounter = Math.max(0, --moveCounter);
-}
-if(deltaX !=0 || deltaY != 0 || deltaZ != 0) console.log(deltaX,deltaY,deltaZ,moveCounter);
-if(moveCounter > 1) { shuffleNumber(); moveCounter=0; }
-lastX = a.x;
-lastY = a.y;
-lastZ = a.z;
-}
-function shuffleNumber() {
-var newNum = getRandomInt(1,6);
-document.querySelector("#die").innerHTML = newNum;
-}
-function getRandomInt(min, max) {
-return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-</script>
-<style>
-#die {
-font-weight:bold;
-font-family: Arial;
-font-size: 12em;
-width:100%;
-height:100%;
-margin-left: auto;
-margin-right: auto;
-text-align: center;
-}
-</style>
-</head>
-<body>
-<div id="die"></div>
-</body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Hello World</title>
+    </head>
+    <body>
+        <div class="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+        <script type="text/javascript" src="cordova-2.2.0.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
 </html>
